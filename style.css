@@ -25,3 +25,10 @@ body {
   border: 2px solid #333;
   background-color: rgb(226, 215, 240);
 }
+
+.timer {
+  flex: 1;
+  padding: 20px;
+  border: 2px solid #333;
+  background-color: #e7e1e1;
+}
