@@ -23,6 +23,33 @@ def get_last_submissions(handle: str, count: int = 5):
     else:
         print(f"Ошибка: {data.get('comment', 'Не удалось получить данные')}")
 
-handle = input()
+def check_problem_solved(handle, contest_id, problem_index):
+    url = f"https://codeforces.com/api/user.status?handle={handle}"
+    
+    try:
+        response = requests.get(url)
+        response.raise_for_status() 
+        data = response.json()
+        if data.get("status") != "OK":
+            print(f"Ошибка API Codeforces: {data.get('comment')}")
+            return False
+        
+        submissions = data.get("result", [])
+        
+        for sub in submissions:
+            problem = sub.get("problem", {})
+            if (problem.get("contestId") == int(contest_id) and problem.get("index").upper() == str(problem_index).upper()):
+                if sub.get("verdict") == "OK":
+                    return True
+                    
+        return False
 
-get_last_submissions(handle, 5)
+    except requests.exceptions.RequestException as e:
+        print(f"Ошибка при запросе к сети: {e}")
+        return False
+
+handle = input()
+ci = int(input())
+pi = input()
+
+print(check_problem_solved(handle, ci, pi))
