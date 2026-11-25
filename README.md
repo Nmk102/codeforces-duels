@@ -1,35 +1,35 @@
 # Codeforces Duels
 
-Codeforces Duels is a small website where two people compete on the same Codeforces problem. Both players start at the same time, and whoever solves the problem first wins.
+Codeforces Duels is a website where two people compete on the same Codeforces problem. The task is given to both users at the same time and the winner is determined according to who solved it faster.
 
-## Why I made it
+## Reasons why I created it
 
-Solving problems alone can get boring, and it is hard to stay motivated. A duel makes practice more like a game: you have an opponent, a timer, and a clear goal. I made this project for people who already use Codeforces and want to train together with a friend.
+It might be boring to solve problems alone and you might find it hard to motivate yourself. In case of a duel, your training becomes something of a game – there is an opponent, there is a timer and there is a goal. This project is intended for those who uses Codeforces and wants to train with a friend.
 
-## What it does now
+## Algorithm
 
-- Shows the duel page with two players and a "Start duel" button.
-- Starts a timer when the duel begins.
-- Checks if a player has solved a problem. The server asks the Codeforces API for the player's submissions and looks for an accepted one. Right now the problem is fixed to 1A, because I am still testing.
+1. Every participant enters their Codeforces handle.
+2. A server randomly picks up the problem which is not solved by either of the participants.
+3. When a user presses "Start Duel" button the timer starts running.
+4. A server monitors both of the submissions of the users by means of Codeforces API.
+5. In case of an accepted submission by one of the players the winner is announced along with the duration of the duel.
 
-## How to run it
+## Running the website
 
-1. Install Python and the libraries: `pip install flask requests`
-2. Run `python app.py`
-3. Open `http://127.0.0.1:5000` in the browser.
-4. To test the check, open `http://127.0.0.1:5000/check?handle=YOUR_HANDLE`. It returns JSON that says if the handle has solved the problem.
+1. Install Python, flask and requests using pip: pip install flask requests
+2. Run python app.py
+3. Open http://127.0.0.1:5000 in the browser.
 
-## Files
+## Files used
 
-- `app.py` - Flask server with the main page and the `/check` route.
-- `cf.py` - functions that talk to the Codeforces API.
-- `templates/index.html` - the duel page.
-- `static/script.js` - button and timer.
-- `static/style.css` - styles.
+- app.py - Flask server and routing.
+- cf.py - functions communicating with Codeforces API.
+- templates/index.html - duel webpage.
+- static/script.js - buttons, timer and submission checking.
+- static/style.css - styles.
 
-## Plans
+## Issues encountered
 
-- Let players enter their own handles.
-- Pick a random problem for each duel.
-- Check both players automatically and show the winner.
-- Add more features later.
+- It was necessary to account for limitations in Codeforces API to avoid excessive usage of the queries to the website so submissions are checked not so frequently.
+- Some of the possible cases include wrong handles and participants with no submissions therefore the error message is given instead of crashing the website.
+- The project gave me some experience in creating small-scale server and working with the API.
